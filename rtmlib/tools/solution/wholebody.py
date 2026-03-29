@@ -44,7 +44,7 @@ from typing import List, Optional
 
 import numpy as np
 
-from .. import YOLOX, RTMPose
+from .. import YOLO11, RTMPose
 from .utils.types import BodyResult, Keypoint, PoseResult
 
 
@@ -53,7 +53,7 @@ class Wholebody:
     MODE = {
         'performance': {
             'det':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip',  # noqa
+            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-384x288_20231122.zip',  # noqa
@@ -61,15 +61,15 @@ class Wholebody:
         },
         'lightweight': {
             'det':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_tiny_8xb8-300e_humanart-6f3252f9.zip',  # noqa
-            'det_input_size': (416, 416),
+            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-l-m_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
             'pose_input_size': (192, 256),
         },
         'balanced': {
             'det':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip',  # noqa
+            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
@@ -95,7 +95,7 @@ class Wholebody:
             pose = self.MODE[mode]['pose']
             pose_input_size = self.MODE[mode]['pose_input_size']
 
-        self.det_model = YOLOX(det,
+        self.det_model = YOLO11(det,
                                model_input_size=det_input_size,
                                backend=backend,
                                device=device)
@@ -107,7 +107,11 @@ class Wholebody:
 
     def __call__(self, image: np.ndarray):
         bboxes = self.det_model(image)
+        print("bboxes:", bboxes)
+        print("bbox shape:", None if bboxes is None else bboxes.shape)
         keypoints, scores = self.pose_model(image, bboxes=bboxes)
+        print("keypoints shape:", keypoints.shape if len(keypoints) else keypoints)
+        print("scores shape:", scores.shape if len(scores) else scores)
 
         return keypoints, scores
 
