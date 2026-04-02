@@ -47,7 +47,7 @@ class Body:
     MODE = {
         'performance': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-x_simcc-body7_pt-body7_700e-384x288-71d7b7e9_20230629.zip',  # noqa
@@ -55,7 +55,7 @@ class Body:
         },
         'lightweight': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-s_simcc-body7_pt-body7_420e-256x192-acd4a1ef_20230504.zip',  # noqa
@@ -63,7 +63,7 @@ class Body:
         },
         'balanced': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7_420e-256x192-e48f03d0_20230504.zip',  # noqa
@@ -97,7 +97,8 @@ class Body:
                  mode: str = 'balanced',
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
 
         if pose is not None and 'rtmo' in pose:
             from .. import RTMO
@@ -110,7 +111,8 @@ class Body:
                                    model_input_size=pose_input_size,
                                    to_openpose=to_openpose,
                                    backend=backend,
-                                   device=device)
+                                   device=device,
+                                   dst_dir=dst_dir)
         else:
             from .. import YOLO11, RTMPose
 

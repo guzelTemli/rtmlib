@@ -30,8 +30,8 @@ pose_tracker = PoseTracker(Wholebody,
 # custom = partial(
 #             Custom,
 #             to_openpose=openpose_skeleton,
-#             det_class='YOLOX',
-#             det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip', # noqa
+#             det_class='YOLO11',
+#             det='rtmlib/weights/yolo11n.onnx', # noqa
 #             det_input_size=(640, 640),
 #             pose_class='RTMPose',
 #             pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7-halpe26_700e-256x192-4d3e73dd_20230605.zip', # noqa
@@ -144,12 +144,14 @@ class PoseTracker:
                  mode: str = 'balanced',
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
 
         model = solution(mode=mode,
                          to_openpose=to_openpose,
                          backend=backend,
-                         device=device)
+                         device=device,
+                         dst_dir=dst_dir)
 
         try:
             self.det_model = model.det_model
@@ -199,8 +201,9 @@ class PoseTracker:
                             bboxes, _ = self.det_model(image)
                     else:
                         bboxes = self.det_model(image)
-                except:  # noqa
-                    return [], []
+                except Exception as e:  # noqa
+                    print("PoseTracker detection error:", repr(e))
+                    raise
             else:
                 bboxes = self.bboxes_last_frame
 

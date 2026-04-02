@@ -45,7 +45,7 @@ while cap.isOpened():
 
 import numpy as np
 
-from .. import YOLOX, RTMPose3d
+from .. import YOLO11, RTMPose3d
 
 
 class Wholebody3d:
@@ -53,7 +53,7 @@ class Wholebody3d:
     MODE = {
         'balanced': {
             'det':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip',  # noqa
+            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://huggingface.co/Soykaf/RTMW3D-x/resolve/main/onnx/rtmw3d-x_8xb64_cocktail14-384x288-b0a0eab7_20240626.onnx',  # noqa
@@ -79,7 +79,7 @@ class Wholebody3d:
             pose = self.MODE[mode]['pose']
             pose_input_size = self.MODE[mode]['pose_input_size']
 
-        self.det_model = YOLOX(det,
+        self.det_model = YOLO11(det,
                                model_input_size=det_input_size,
                                backend=backend,
                                device=device)

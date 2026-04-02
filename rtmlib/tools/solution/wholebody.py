@@ -44,7 +44,7 @@ from typing import List, Optional
 
 import numpy as np
 
-from .. import YOLO11, RTMPose
+from .. import YOLO11, RTMPose, YOLOX
 from .utils.types import BodyResult, Keypoint, PoseResult
 
 
@@ -53,15 +53,16 @@ class Wholebody:
     MODE = {
         'performance': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-384x288_20231122.zip',  # noqa
             'pose_input_size': (288, 384),
+            'dst_dir': "rtmlib/weights"
         },
         'lightweight': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-l-m_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
@@ -69,7 +70,7 @@ class Wholebody:
         },
         'balanced': {
             'det':
-            'C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib/weights/yolo11n.onnx',  # noqa
             'det_input_size': (640, 640),
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
@@ -85,7 +86,8 @@ class Wholebody:
                  mode: str = 'balanced',
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
 
         if det is None:
             det = self.MODE[mode]['det']
@@ -95,10 +97,18 @@ class Wholebody:
             pose = self.MODE[mode]['pose']
             pose_input_size = self.MODE[mode]['pose_input_size']
 
+        if dst_dir is None:
+            dst_dir = self.MODE[mode].get('dst_dir', "rtmlib\weights")
+
+        # self.det_model = YOLO11(det,
+        #                        model_input_size=det_input_size,
+        #                        backend=backend,
+        #                        device=device)
         self.det_model = YOLO11(det,
                                model_input_size=det_input_size,
                                backend=backend,
-                               device=device)
+                               device=device,
+                               dst_dir=dst_dir)
         self.pose_model = RTMPose(pose,
                                   model_input_size=pose_input_size,
                                   to_openpose=to_openpose,

@@ -46,10 +46,11 @@ class BaseTool(metaclass=ABCMeta):
                  mean: tuple = None,
                  std: tuple = None,
                  backend: str = 'opencv',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
 
         if not os.path.exists(onnx_model):
-            onnx_model = download_checkpoint(onnx_model)
+            onnx_model = download_checkpoint(onnx_model, dst_dir=dst_dir)
 
         if backend == 'opencv':
             try:
@@ -94,8 +95,7 @@ class BaseTool(metaclass=ABCMeta):
                 device_name='CPU',
                 config={'PERFORMANCE_HINT': 'LATENCY'})
             self.input_layer = self.compiled_model.input(0)
-            self.output_layer0 = self.compiled_model.output(0)
-            self.output_layer1 = self.compiled_model.output(1)
+            self.output_layers = list(self.compiled_model.outputs)
 
         else:
             raise NotImplementedError
@@ -142,8 +142,6 @@ class BaseTool(metaclass=ABCMeta):
             outputs = self.session.run(sess_output, sess_input)
         elif self.backend == 'openvino':
             results = self.compiled_model(input)
-            output0 = results[self.output_layer0]
-            output1 = results[self.output_layer1]
-            outputs = [output0, output1]
+            outputs = [results[out] for out in self.output_layers]
 
         return outputs

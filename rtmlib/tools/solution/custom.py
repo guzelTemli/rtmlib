@@ -14,8 +14,8 @@ openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 
 # Example: RTMPose BodyWithFeet in balanced mode
 custom = Custom(to_openpose=openpose_skeleton,
-                det_class='YOLOX',
-                det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip', # noqa
+                det_class='YOLO11',
+                det='C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx', # noqa
                 det_input_size=(640, 640),
                 pose_class='RTMPose',
                 pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7-halpe26_700e-256x192-4d3e73dd_20230605.zip', # noqa
@@ -25,8 +25,8 @@ custom = Custom(to_openpose=openpose_skeleton,
 
 # # Example: ViTPose BodyWithFeet in balanced mode
 # custom = Custom(to_openpose=openpose_skeleton,
-#                 det_class='YOLOX',
-#                 det='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/yolox_m_8xb8-300e_humanart-c2c7a14a.zip', # noqa
+#                 det_class='YOLO11',
+#                 det='C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx', # noqa
 #                 det_input_size=(640, 640),
 #                 pose_class='ViTPose',
 #                 pose='https://huggingface.co/JunkyByte/easy_ViTPose/resolve/main/onnx/coco_25/vitpose-l-coco_25.onnx', # noqa
@@ -55,9 +55,9 @@ custom = Custom(to_openpose=openpose_skeleton,
 
 # # Example: Human and animal
 # custom = Custom(to_openpose=openpose_skeleton,
-#                 det_class='YOLOX',
+#                 det_class='YOLO11',
 #                 det_mode='multiclass', # or det_categories=[0,23] for example,
-#                 det='https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_s.onnx',
+#                 det='C:/Users/gzltm/source/GitHub/rtmlib/rtmlib/weights/yolo11n.onnx',
 #                 det_input_size=(640,640),
 #                 pose_class='ViTPose',
 #                 pose='https://huggingface.co/JunkyByte/easy_ViTPose/resolve/main/onnx/apt36k/vitpose-b-apt36k.onnx',
