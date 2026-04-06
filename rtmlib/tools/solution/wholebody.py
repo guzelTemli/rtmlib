@@ -67,6 +67,7 @@ class Wholebody:
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-l-m_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
             'pose_input_size': (192, 256),
+            'dst_dir': "rtmlib/weights"
         },
         'balanced': {
             'det':
@@ -75,6 +76,7 @@ class Wholebody:
             'pose':
             'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
             'pose_input_size': (192, 256),
+            'dst_dir': "rtmlib/weights"
         }
     }
 
@@ -113,7 +115,8 @@ class Wholebody:
                                   model_input_size=pose_input_size,
                                   to_openpose=to_openpose,
                                   backend=backend,
-                                  device=device)
+                                  device=device,
+                                  dst_dir=dst_dir)
 
     def __call__(self, image: np.ndarray):
         bboxes = self.det_model(image)

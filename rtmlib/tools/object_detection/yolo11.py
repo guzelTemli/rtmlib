@@ -31,7 +31,7 @@ class YOLO11(BaseTool):
         mode: str = 'human',
         nms_thr: float = 0.45,
         score_thr: float = 0.25,
-        backend: str = 'onnxruntime',
+        backend: str = 'openvino',
         device: str = 'cpu',
         dst_dir=None
     ):
@@ -51,11 +51,11 @@ class YOLO11(BaseTool):
         outputs = self.inference(image)
 
         if isinstance(outputs, list):
-            print("YOLO11 raw output shapes:", [np.asarray(out).shape for out in outputs])
+#           print("YOLO11 raw output shapes:", [np.asarray(out).shape for out in outputs])
             outputs = max(outputs, key=lambda x: np.asarray(x).size)
 
         outputs = np.asarray(outputs)
-        print("YOLO11 selected output shape:", outputs.shape)
+#        print("YOLO11 selected output shape:", outputs.shape)
 
         return self.postprocess(outputs, ratio)
 
@@ -148,18 +148,18 @@ class YOLO11(BaseTool):
         else:
             raise ValueError(f"Unexpected YOLO11 output shape: {outputs.shape}")
 
-        print("final_boxes:", final_boxes.shape if len(final_boxes) else final_boxes)
-        print(
+#        print("final_boxes:", final_boxes.shape if len(final_boxes) else final_boxes)
+#        print(
             "final_cls_inds:",
             final_cls_inds[:10] if len(final_cls_inds) else final_cls_inds
-        )
+#        )
 
         if self.mode == 'multiclass':
             return final_boxes, final_cls_inds
 
         if self.mode == 'human':
             person_keep = final_cls_inds == 0
-            print("person count:", int(np.sum(person_keep)))
+#            print("person count:", int(np.sum(person_keep)))
             return final_boxes[person_keep]
 
         raise NotImplementedError(f"Unsupported mode: {self.mode}")

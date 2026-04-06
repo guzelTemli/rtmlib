@@ -4,13 +4,13 @@ import cv2
 
 from rtmlib import PoseTracker, Wholebody3d, draw_skeleton
 
-device = 'cuda'
-backend = 'onnxruntime'  # opencv, onnxruntime, openvino
+device = 'cpu'
+backend = 'openvino'  # opencv, onnxruntime, openvino
 
 cap = cv2.VideoCapture(0)
 
 wholebody3d = PoseTracker(Wholebody3d,
-                          det_frequency=7,
+                          det_frequency=1,
                           tracking=False,
                           backend=backend,
                           device=device)

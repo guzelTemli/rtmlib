@@ -16,9 +16,10 @@ class RTMPose(BaseTool):
                  std: tuple = (58.395, 57.12, 57.375),
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
         super().__init__(onnx_model, model_input_size, mean, std, backend,
-                         device)
+                         device, dst_dir)
         self.to_openpose = to_openpose
 
     def __call__(self, image: np.ndarray, bboxes: list = []):

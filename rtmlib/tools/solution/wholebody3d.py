@@ -58,6 +58,7 @@ class Wholebody3d:
             'pose':
             'https://huggingface.co/Soykaf/RTMW3D-x/resolve/main/onnx/rtmw3d-x_8xb64_cocktail14-384x288-b0a0eab7_20240626.onnx',  # noqa
             'pose_input_size': (288, 384),
+            'dst_dir': "rtmlib/weights"
         }
     }
 
@@ -69,7 +70,8 @@ class Wholebody3d:
                  mode: str = 'balanced',
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir=None):
 
         if det is None:
             det = self.MODE[mode]['det']
@@ -82,7 +84,8 @@ class Wholebody3d:
         self.det_model = YOLO11(det,
                                model_input_size=det_input_size,
                                backend=backend,
-                               device=device)
+                               device=device,
+                               dst_dir=dst_dir)
         self.pose_model = RTMPose3d(pose,
                                     model_input_size=pose_input_size,
                                     to_openpose=to_openpose,

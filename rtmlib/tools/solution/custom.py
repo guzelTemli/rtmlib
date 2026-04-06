@@ -21,7 +21,8 @@ custom = Custom(to_openpose=openpose_skeleton,
                 pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7-halpe26_700e-256x192-4d3e73dd_20230605.zip', # noqa
                 pose_input_size=(192, 256),
                 backend=backend,
-                device=device)
+                device=device,
+                dst_dir="rtmlib/weights")
 
 # # Example: ViTPose BodyWithFeet in balanced mode
 # custom = Custom(to_openpose=openpose_skeleton,
@@ -32,7 +33,8 @@ custom = Custom(to_openpose=openpose_skeleton,
 #                 pose='https://huggingface.co/JunkyByte/easy_ViTPose/resolve/main/onnx/coco_25/vitpose-l-coco_25.onnx', # noqa
 #                 pose_input_size=(192, 256),
 #                 backend=backend,
-#                 device=device)
+#                 device=device,
+#                 dst_dir="rtmlib/weights")
 
 # # Example: RTMO in balanced mode
 # custom = Custom(to_openpose=openpose_skeleton,
@@ -40,7 +42,8 @@ custom = Custom(to_openpose=openpose_skeleton,
 #                 pose='https://download.openmmlab.com/mmpose/v1/projects/rtmo/onnx_sdk/rtmo-m_16xb16-600e_body7-640x640-39e78cc4_20231211.zip', # noqa
 #                 pose_input_size=(640,640),
 #                 backend=backend,
-#                 device=device)
+#                 device=device,
+#                 dst_dir="rtmlib/weights")
 
 # # Example: Hand in lightweight mode
 # custom = Custom(to_openpose=openpose_skeleton,
@@ -51,7 +54,8 @@ custom = Custom(to_openpose=openpose_skeleton,
 #                 pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-hand5_pt-aic-coco_210e-256x256-74fb594_20230320.zip',
 #                 pose_input_size=(256, 256),
 #                 backend=backend,
-#                 device=device)
+#                 device=device,
+#                 dst_dir="rtmlib/weights")
 
 # # Example: Human and animal
 # custom = Custom(to_openpose=openpose_skeleton,
@@ -63,7 +67,8 @@ custom = Custom(to_openpose=openpose_skeleton,
 #                 pose='https://huggingface.co/JunkyByte/easy_ViTPose/resolve/main/onnx/apt36k/vitpose-b-apt36k.onnx',
 #                 pose_input_size=(192, 256),
 #                 backend=backend,
-#                 device=device)
+#                 device=device,
+#                 dst_dir="rtmlib/weights")
 
 frame_idx = 0
 
@@ -110,7 +115,8 @@ class Custom:
                  mode: str = None,
                  to_openpose: bool = False,
                  backend: str = 'onnxruntime',
-                 device: str = 'cpu'):
+                 device: str = 'cpu',
+                 dst_dir: str = "rtmlib/weights"):
 
         if det_class is not None:
             try:
@@ -122,7 +128,8 @@ class Custom:
                                            model_input_size=det_input_size,
                                            mode=det_mode,
                                            backend=backend,
-                                           device=device)
+                                           device=device,
+                                           dst_dir=dst_dir)
                 self.det_mode = det_mode
                 self.det_categories = det_categories
                 self.one_stage = False
@@ -139,7 +146,8 @@ class Custom:
                                              model_input_size=pose_input_size,
                                              to_openpose=to_openpose,
                                              backend=backend,
-                                             device=device)
+                                             device=device,
+                                             dst_dir=dst_dir)
             except ImportError:
                 raise ImportError(f'{pose_class} is not supported by rtmlib.')
 
