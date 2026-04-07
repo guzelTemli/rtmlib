@@ -7,7 +7,7 @@ from rtmlib import PoseTracker, Wholebody3d, draw_skeleton
 device = 'cpu'
 backend = 'openvino'  # opencv, onnxruntime, openvino
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\video\\test02.mp4")
 
 wholebody3d = PoseTracker(Wholebody3d,
                           det_frequency=1,

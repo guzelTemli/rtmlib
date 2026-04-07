@@ -86,16 +86,37 @@ class BaseTool(metaclass=ABCMeta):
             core = Core()
             model_onnx = core.read_model(model=onnx_model)
 
-            if device != 'cpu':
-                print('OpenVINO only supports CPU backend, automatically'
-                      ' switched to CPU backend.')
+            device_map = {
+                'cpu': 'CPU',
+                'cuda': 'GPU',
+                'gpu': 'GPU',
+                'auto': 'AUTO',
+            }
+
+            ov_device = device_map.get(device.lower(), 'AUTO')
+
+            print('OpenVINO available devices:', core.available_devices)
+            print(f'OpenVINO compile device: {ov_device}')
 
             self.compiled_model = core.compile_model(
-                model=model_onnx,
-                device_name='CPU',
-                config={'PERFORMANCE_HINT': 'LATENCY'})
+                model=model_onnx, 
+                device_name=ov_device, 
+                config={'PERFORMANCE_HINT': 'LATENCY'}
+                )
             self.input_layer = self.compiled_model.input(0)
             self.output_layers = list(self.compiled_model.outputs)
+            
+
+#            if device != 'cpu':
+#               print('OpenVINO only supports CPU backend, automatically'
+#                      ' switched to CPU backend.')
+#
+#            self.compiled_model = core.compile_model(
+#               model=model_onnx,
+#               device_name='AUTO',
+#               config={'PERFORMANCE_HINT': 'LATENCY'})
+#           self.input_layer = self.compiled_model.input(0)
+#           self.output_layers = list(self.compiled_model.outputs)
 
         else:
             raise NotImplementedError

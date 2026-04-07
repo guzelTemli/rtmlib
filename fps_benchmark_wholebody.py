@@ -9,7 +9,7 @@ from rtmlib import PoseTracker, Wholebody, draw_skeleton
 # =========================
 device = 'cpu'
 backend = 'openvino'   # opencv, onnxruntime, openvino
-video_path = 0   # video dosya yolun
+video_path = "C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\video\\tek_adam.mp4"   # video dosya yolun
 openpose_skeleton = False
 
 mode = 'balanced'      # balanced, performance, lightweight
@@ -88,6 +88,11 @@ while cap.isOpened():
         (0, 255, 0),
         2
     )
+    h, w = img_show.shape[:2]
+    max_width = 1280
+    if w > max_width:
+        scale = max_width / w
+        img_show = cv2.resize(img_show, (None, None), fx=scale, fy=scale)
 
     total_end = time.perf_counter()
 
@@ -127,6 +132,7 @@ avg_infer = infer_np.mean()
 avg_total = total_np.mean()
 
 print("\n========== SONUC ==========")
+print(f"Video              : {video_path}")
 print(f"Backend            : {backend}")
 print(f"Device             : {device}")
 print(f"Mode               : {mode}")

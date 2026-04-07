@@ -32,7 +32,7 @@ class YOLO11(BaseTool):
         nms_thr: float = 0.45,
         score_thr: float = 0.25,
         backend: str = 'openvino',
-        device: str = 'cpu',
+        device: str = 'auto',
         dst_dir=None
     ):
         super().__init__(
@@ -82,7 +82,7 @@ class YOLO11(BaseTool):
         outputs = np.asarray(outputs)
 
         # exported with NMS: (1, N, 6) => x1,y1,x2,y2,score,class
-        if outputs.ndim == 3 and outputs.shape[0] == 1 and outputs.shape[-1] >= 6:
+        if outputs.ndim == 3 and outputs.shape[0] == 1 and outputs.shape[-1] == 6:
             preds = outputs[0]
             final_boxes = preds[:, :4] / ratio
             final_scores = preds[:, 4]
@@ -94,7 +94,7 @@ class YOLO11(BaseTool):
             final_cls_inds = final_cls_inds[score_keep]
 
         # raw output: (1, 84, N) benzeri
-        elif outputs.ndim == 3 and outputs.shape[0] == 1 and outputs.shape[1] > 4:
+        elif outputs.ndim == 3 and outputs.shape[0] == 1 and outputs.shape[1] == 84:
             preds = outputs[0].transpose(1, 0)  # (N, C)
             boxes = preds[:, :4]
             cls_scores = preds[:, 4:]
@@ -150,8 +150,8 @@ class YOLO11(BaseTool):
 
 #        print("final_boxes:", final_boxes.shape if len(final_boxes) else final_boxes)
 #        print(
-            "final_cls_inds:",
-            final_cls_inds[:10] if len(final_cls_inds) else final_cls_inds
+#            "final_cls_inds:",
+#            final_cls_inds[:10] if len(final_cls_inds) else final_cls_inds
 #        )
 
         if self.mode == 'multiclass':

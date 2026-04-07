@@ -47,28 +47,28 @@ class Body:
     MODE = {
         'performance': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-x_simcc-body7_pt-body7_700e-384x288-71d7b7e9_20230629.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (288, 384),
             'dst_dir': "rtmlib/weights"
         },
         'lightweight': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-s_simcc-body7_pt-body7_420e-256x192-acd4a1ef_20230504.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (192, 256),
             'dst_dir': "rtmlib/weights"
         },
         'balanced': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7_420e-256x192-e48f03d0_20230504.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (192, 256),
             'dst_dir': "rtmlib/weights"
         }

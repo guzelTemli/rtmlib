@@ -53,28 +53,28 @@ class Wholebody:
     MODE = {
         'performance': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-384x288_20231122.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (288, 384),
             'dst_dir': "rtmlib/weights"
         },
         'lightweight': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-l-m_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (192, 256),
             'dst_dir': "rtmlib/weights"
         },
         'balanced': {
             'det':
-            'rtmlib/weights/yolo11n.onnx',  # noqa
+            'rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml',  # noqa
             'det_input_size': (640, 640),
             'pose':
-            'https://download.openmmlab.com/mmpose/v1/projects/rtmw/onnx_sdk/rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.zip',  # noqa
+            'rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml',  # noqa
             'pose_input_size': (192, 256),
             'dst_dir': "rtmlib/weights"
         }
@@ -102,10 +102,6 @@ class Wholebody:
         if dst_dir is None:
             dst_dir = self.MODE[mode].get('dst_dir', "rtmlib\weights")
 
-        # self.det_model = YOLO11(det,
-        #                        model_input_size=det_input_size,
-        #                        backend=backend,
-        #                        device=device)
         self.det_model = YOLO11(det,
                                model_input_size=det_input_size,
                                backend=backend,

@@ -31,10 +31,10 @@ pose_tracker = PoseTracker(Wholebody,
 #             Custom,
 #             to_openpose=openpose_skeleton,
 #             det_class='YOLO11',
-#             det='rtmlib/weights/yolo11n.onnx', # noqa
+#             det='rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml', # noqa
 #             det_input_size=(640, 640),
 #             pose_class='RTMPose',
-#             pose='https://download.openmmlab.com/mmpose/v1/projects/rtmposev1/onnx_sdk/rtmpose-m_simcc-body7_pt-body7-halpe26_700e-256x192-4d3e73dd_20230605.zip', # noqa
+#             pose='rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml', # noqa
 #             pose_input_size=(192, 256),
 #             backend=backend,
 #             device=device)
