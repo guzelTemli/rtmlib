@@ -6,10 +6,10 @@ from rtmlib import PoseTracker, Wholebody, draw_skeleton
 
 # import numpy as np
 
-device = 'cpu'
+device = 'gpu'
 backend = 'openvino'  # opencv, onnxruntime, openvino
 
-cap = cv2.VideoCapture('foto4.jpg')
+cap = cv2.VideoCapture('foto\\demo01.jpg')
 
 openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 

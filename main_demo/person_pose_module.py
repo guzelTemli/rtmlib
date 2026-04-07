@@ -14,7 +14,7 @@ class PersonPoseModule:
         det_input_size=(640, 640),
         pose_input_size=(192, 256),
         kpt_thr=0.4,
-        det_interval=10,
+        det_interval=7,
         to_openpose=False,
     ):
         self.det_model_path = det_model_path

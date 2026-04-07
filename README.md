@@ -1,3 +1,9 @@
+## My Changes
+- Replaced YOLOX with YOLO11 detector
+- Added OpenVINO backend test flow
+- Added FPS benchmark script
+- Tested with wholebody 
+
 # rtmlib
 
 ![demo](https://github.com/Tau-J/rtmlib/assets/13503330/b7e8ce8b-3134-43cf-bba6-d81656897289)

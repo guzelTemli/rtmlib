@@ -4,17 +4,17 @@ from person_pose_module import PersonPoseModule
 
 
 def main():
-    video_path = r"video\\12740312_3840_2160_24fps.mp4"
+    video_path = r"video\\tek_adam.mp4"
 
-    det_model_path = r"C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\rtmlib\\weights\\yolo11n.onnx"
-    pose_model_path = r"C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\rtmlib\\weights\\rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.onnx"
+    det_model_path = r"rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml"
+    pose_model_path = r"rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml"
 
     backend = "openvino"
-    device = "cpu"
+    device = "auto"
     output_path = "output_person_skeleton_fast.mp4"
 
-    inf_w = 960
-    inf_h = 540
+    inf_w = 640
+    inf_h = 360
 
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
@@ -36,7 +36,7 @@ def main():
         det_input_size=(640, 640),
         pose_input_size=(192, 256),
         kpt_thr=0.4,
-        det_interval=10,
+        det_interval=7,
         to_openpose=False,
     )
 
@@ -46,7 +46,7 @@ def main():
     print(f"Inference size : {inf_w}x{inf_h}")
     print(f"Backend        : {backend}")
     print(f"Device         : {device}")
-    print(f"det_interval   : 10")
+    print(f"det_interval   : {detector.det_interval}")
 
     cv2.namedWindow("Person Skeleton Demo", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("Person Skeleton Demo", 960, 540)
@@ -67,7 +67,7 @@ def main():
 
         display = detector.draw(frame, bboxes, keypoints, scores, inference_ms)
 
-        writer.write(display)
+ #       writer.write(display)
         cv2.imshow("Person Skeleton Demo", display)
 
         if cv2.waitKey(1) & 0xFF == ord("q"):

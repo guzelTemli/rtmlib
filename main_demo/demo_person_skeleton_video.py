@@ -6,14 +6,14 @@ def main():
     # --------------------------------------------------
     # VIDEO YOLU
     # --------------------------------------------------
-    video_path = r"video\\12740312_3840_2160_24fps.mp4"
+    video_path = r"video\\tek_adam.mp4"
 
     # --------------------------------------------------
     # MODEL YOLLARI
     # Kendi yollarına göre değiştir
     # --------------------------------------------------
-    det_model_path = r"C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\rtmlib\\weights\\yolo11n.onnx"
-    pose_model_path = r"C:\\Users\\gzltm\\source\\GitHub\\rtmlib\\rtmlib\\weights\\rtmw-dw-x-l_simcc-cocktail14_270e-256x192_20231122.onnx"
+    det_model_path = r"rtmlib\\weights\\openvino_format\\yolo11n_openvino_model.xml"
+    pose_model_path = r"rtmlib\\weights\\openvino_format\\rtmposepose_openvino_model.xml"
 
     # --------------------------------------------------
     # BACKEND / DEVICE AYARLARI
@@ -57,8 +57,6 @@ def main():
     print(f"Input FPS         : {input_fps:.2f}")
 
     detector = PersonSkeletonDetection(
-        det_model_path=det_model_path,
-        pose_model_path=pose_model_path,
         backend=backend,
         device=device,
         mode=mode,

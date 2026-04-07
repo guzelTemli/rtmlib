@@ -110,6 +110,8 @@ venv.bak/
 # custom
 *.onnx
 *.mp4
+*.bin
+*.xml
 
 # Pytorch
 *.pth

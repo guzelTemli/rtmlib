@@ -8,19 +8,15 @@ from rtmlib import PoseTracker, Wholebody, draw_skeleton
 class PersonSkeletonDetection:
     def __init__(
         self,
-        det_model_path: str,
-        pose_model_path: str,
         backend: str = "openvino",
         device: str = "cpu",
         mode: str = "balanced",
         det_frequency: int = 10,
-        tracking: bool = True,
+        tracking: bool = False,
         to_openpose: bool = False,
         kpt_thr: float = 0.5,
         show_fps: bool = True,
     ):
-        self.det_model_path = det_model_path
-        self.pose_model_path = pose_model_path
         self.backend = backend
         self.device = device
         self.mode = mode
